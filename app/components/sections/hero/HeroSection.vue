@@ -56,7 +56,7 @@ function scrollToProjects() {
       <div class="hero-section__text text-block">
         <p>Меня зовут Лера. Я&nbsp;UX/UI-дизайнер с&nbsp;опытом в&nbsp;три года</p>
         <p>
-          Работала в&nbsp;небольших дизайн-студиях и&nbsp;над крупным цифровым продуктом&nbsp;—
+          Работала в&nbsp;дизайн-студиях и&nbsp;над крупным цифровым продуктом&nbsp;—
           <a href="https://www.sberbank.ru/" target="_blank">sberbank.ru</a> с&nbsp;аудиторией более
           30&nbsp;млн пользователей в&nbsp;месяц
         </p>
