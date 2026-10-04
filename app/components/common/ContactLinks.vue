@@ -1,4 +1,10 @@
 <script setup lang="ts">
+interface Props {
+  vertical?: boolean;
+}
+
+const { vertical } = defineProps<Props>();
+
 interface Item {
   title: string;
   href: string;
@@ -12,7 +18,12 @@ const items: Item[] = [
 </script>
 
 <template>
-  <ul class="contact-links">
+  <ul
+    class="contact-links"
+    :class="{
+      'contact-links--vertical': vertical,
+    }"
+  >
     <li v-for="{ title, href } in items" :key="title" class="contact-links__item">
       <a :href="href" target="_blank">{{ title }}</a>
     </li>
@@ -23,10 +34,27 @@ const items: Item[] = [
 .contact-links {
   display: flex;
 
+  &--vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
   &__item {
+    text-transform: uppercase;
+
+    a {
+      @include hover {
+        background-color: var(--color-text);
+        color: var(--color-background);
+      }
+    }
+  }
+
+  &:not(&--vertical) &__item {
     display: flex;
     align-items: center;
-    text-transform: uppercase;
 
     &:not(:first-child) {
       &::before {
@@ -34,13 +62,6 @@ const items: Item[] = [
         @include circle(4px);
         margin: 0 12px;
         background-color: var(--color-text);
-      }
-    }
-
-    a {
-      @include hover {
-        background-color: var(--color-text);
-        color: var(--color-background);
       }
     }
   }
