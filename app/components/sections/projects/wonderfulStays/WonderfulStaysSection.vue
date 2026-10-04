@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import type { Project } from '#shared/types/Project.ts';
+import { usePreviewSlides } from '~/components/sections/projects/wonderfulStays/usePreviewSlides.ts';
 
-const previews = [
-  '/projects/wonderful-stays/preview-1.jpg',
-  '/projects/wonderful-stays/preview-2.jpg',
-  '/projects/wonderful-stays/preview-3.jpg',
-];
+const { previewSlides, activeSlideIndex, previousSlideIndex } = usePreviewSlides();
 
 const project: Project = {
   name: 'Wonderful Stays',
@@ -33,12 +30,21 @@ const project: Project = {
 
 <template>
   <ProjectSectionBase :project="project" grid-class="wonderful-stays-section__grid">
-    <UiImage
-      v-for="(src, index) in previews"
-      :key="index"
-      class="wonderful-stays-section__item"
-      :src="src"
-    />
+    <div class="wonderful-stays-section__item wonderful-stays-section__slideshow">
+      <UiImage
+        v-for="(src, index) in previewSlides"
+        :key="src"
+        class="wonderful-stays-section__slide"
+        :class="{
+          'wonderful-stays-section__slide--active': index === activeSlideIndex,
+          'wonderful-stays-section__slide--previous': index === previousSlideIndex,
+        }"
+        :src="src"
+        :aria-hidden="index !== activeSlideIndex"
+      />
+    </div>
+    <UiImage class="wonderful-stays-section__item" src="/projects/wonderful-stays/preview-2.jpg" />
+    <UiImage class="wonderful-stays-section__item" src="/projects/wonderful-stays/preview-3.jpg" />
   </ProjectSectionBase>
 </template>
 
@@ -54,6 +60,29 @@ const project: Project = {
     @include media-down($break-tablet) {
       grid-template-columns: auto;
       aspect-ratio: auto;
+    }
+  }
+
+  &__slideshow {
+    display: grid;
+    min-width: 0;
+    isolation: isolate;
+  }
+
+  &__slide {
+    grid-area: 1 / 1;
+    z-index: 0;
+    opacity: 0;
+
+    &--previous {
+      z-index: 1;
+      opacity: 1;
+    }
+
+    &--active {
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 1s ease;
     }
   }
 }
