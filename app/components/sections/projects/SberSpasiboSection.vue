@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import type { Project } from '#shared/types/Project.ts';
 
-const previews = [
-  '/projects/sber-spasibo/preview-1.jpg',
-  '/projects/sber-spasibo/preview-2.jpg',
-  '/projects/sber-spasibo/preview-3.jpg',
-];
-
 const project: Project = {
   name: 'СберСпасибо',
   company: 'Сбер',
@@ -32,11 +26,24 @@ const project: Project = {
 
 <template>
   <ProjectSectionBase :project="project" grid-class="sber-spasibo-section__grid">
-    <UiImage
-      v-for="(src, index) in previews"
-      :key="index"
-      class="sber-spasibo-section__item"
-      :src="src"
+    <UiImage class="sber-spasibo-section__item" src="/projects/sber-spasibo/preview-1.jpg" />
+
+    <div class="sber-spasibo-section__item">
+      <UiImage src="/projects/sber-spasibo/preview-2-bg.jpg" />
+
+      <UiVideo
+        src="/projects/sber-spasibo/preview-2-video.mp4"
+        poster="/projects/sber-spasibo/preview-2-poster.jpg"
+      />
+    </div>
+
+    <UiImage class="sber-spasibo-section__item" src="/projects/sber-spasibo/preview-3.jpg" />
+
+    <img src="/projects/sber-spasibo/coin-top.png" alt="" class="sber-spasibo-section__coin-top" />
+    <img
+      src="/projects/sber-spasibo/coin-bottom.png"
+      alt=""
+      class="sber-spasibo-section__coin-bottom"
     />
   </ProjectSectionBase>
 </template>
@@ -44,6 +51,7 @@ const project: Project = {
 <style lang="scss">
 .sber-spasibo-section {
   &__grid {
+    position: relative;
     grid-template-columns:
       1fr
       percentContentWidth(698)
@@ -51,17 +59,58 @@ const project: Project = {
     aspect-ratio: $content-width / 500;
 
     @include media-down($break-tablet) {
-      grid-template-columns: auto;
+      grid-template-columns: 1fr 1fr;
       aspect-ratio: auto;
     }
   }
 
   &__item {
-    &:nth-child(3) {
+    &:nth-child(2) {
+      position: relative;
+
+      .ui-image {
+        width: 100%;
+        height: 100%;
+      }
+
+      .ui-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: percentRatio(618, 698);
+        transform: translate(-50%, -50%);
+        aspect-ratio: 618 / 355;
+        border-radius: 8px;
+      }
+
       @include media-down($break-tablet) {
-        display: none;
+        order: -1;
+        grid-column: 1 / 3;
       }
     }
+  }
+
+  &__coin-top,
+  &__coin-bottom {
+    position: absolute;
+
+    @include media-down($break-tablet) {
+      display: none;
+    }
+  }
+
+  &__coin-top {
+    width: percentContentWidth(132);
+    left: percentContentWidth(985);
+    top: 0;
+    transform: translate(0, percentRatio(-95, 136));
+  }
+
+  &__coin-bottom {
+    width: percentContentWidth(218);
+    left: percentContentWidth(440);
+    bottom: 0;
+    transform: translate(0, percentRatio(60, 194));
   }
 }
 </style>
