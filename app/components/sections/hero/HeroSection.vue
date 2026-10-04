@@ -86,7 +86,7 @@ function scrollToProjects() {
   }
 
   @include media-down($break-tablet) {
-    min-height: 0;
+    align-items: flex-start;
     padding-top: 130px;
     padding-bottom: 0;
   }
@@ -94,7 +94,7 @@ function scrollToProjects() {
   &__content {
     position: relative;
     max-width: 634px;
-    margin: auto;
+    margin: 0 auto;
 
     @include media-down($break-tablet) {
       max-width: none;
