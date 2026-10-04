@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { Project } from '#shared/types/Project.ts';
 
-const previews = [
-  '/projects/kinopoisk/preview-1.jpg',
-  '/projects/kinopoisk/preview-2.jpg',
-  '/projects/kinopoisk/preview-3.jpg',
-];
+const previews = ['/projects/kinopoisk/preview-2.jpg', '/projects/kinopoisk/preview-3.jpg'];
 
 const project: Project = {
   name: 'Kinopoisk Deluxe',
@@ -23,6 +19,7 @@ const project: Project = {
 <template>
   <!-- TODO: Текст кнопки "Смотреть презентацию" -->
   <ProjectSectionBase :project="project" grid-class="kinopoisk-section__grid">
+    <KinopoiskCarousel class="kinopoisk-section__item" />
     <UiImage
       v-for="(src, index) in previews"
       :key="index"
