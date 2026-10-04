@@ -69,8 +69,6 @@ function scrollToProjects() {
       <UiButton class="hero-section__button" text="Перейти к проектам" @click="scrollToProjects">
         <IconLink />
       </UiButton>
-
-      <ContactLinks class="hero-section__mobile-contacts" />
     </div>
   </section>
 </template>
@@ -131,18 +129,6 @@ function scrollToProjects() {
 
   &__button {
     margin-top: 40px;
-
-    @include media-down($break-tablet) {
-      display: none;
-    }
-  }
-
-  &__mobile-contacts {
-    margin-top: 32px;
-
-    @include media-up($break-tablet) {
-      display: none;
-    }
   }
 
   &__sticker {
